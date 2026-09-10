@@ -1,8 +1,5 @@
 public import Vector
 
-// Named components are conveniences for one, two, and three dimensions.
-// They do not select a coordinate frame or add an affine interpretation.
-
 extension Displacement where N == 1 {
     public init(dx: Scalar) {
         self.init(components: Vector(x: dx))

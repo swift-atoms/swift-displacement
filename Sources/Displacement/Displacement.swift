@@ -1,7 +1,5 @@
 @_exported public import Vector
 
-/// An N-dimensional displacement. Domain-specific types such as Swift.Duration
-/// may also be used directly as displacements by an affine structure.
 public struct Displacement<let N: Int, Scalar> {
     public let components: Vector<N, Scalar>
 
