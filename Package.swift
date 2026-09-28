@@ -5,11 +5,16 @@ let package = Package(
     name: "swift-displacement",
     platforms: [.macOS(.v27), .iOS(.v27), .tvOS(.v27), .watchOS(.v27), .visionOS(.v27)],
     products: [.library(name: "Displacement", targets: ["Displacement"])],
+    traits: [
+        .trait(name: "Tagged", description: "Tagged integration"),
+    ],
     dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-tagged.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-vector.git", branch: "main"),
     ],
     targets: [
         .target(name: "Displacement", dependencies: [
+                .product(name: "Tagged", package: "swift-tagged", condition: .when(traits: ["Tagged"])),
             .product(name: "Vector", package: "swift-vector"),
         ]),
         .testTarget(name: "Displacement Tests", dependencies: [
