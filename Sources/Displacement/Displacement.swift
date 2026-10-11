@@ -4,6 +4,9 @@ public struct Displacement<let N: Int, Scalar> {
     public let components: Vector<N, Scalar>
 
     public init(components: Vector<N, Scalar>) { self.components = components }
+}
+
+extension Displacement {
     public subscript(index: Int) -> Scalar { components[index] }
 }
 
