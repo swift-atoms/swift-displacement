@@ -6,34 +6,45 @@ let package = Package(
     platforms: [.macOS(.v27), .iOS(.v27), .tvOS(.v27), .watchOS(.v27), .visionOS(.v27)],
     products: [.library(name: "Displacement", targets: ["Displacement"])],
     traits: [
-        .trait(name: "Tagged", description: "Tagged integration"),
+        .trait(name: "Tagged", description: "Tagged integration")
     ],
     dependencies: [
         .package(url: "https://github.com/swift-atoms/swift-tagged.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-vector.git", branch: "main"),
     ],
     targets: [
-        .target(name: "Displacement", dependencies: [
-                .product(name: "Tagged", package: "swift-tagged", condition: .when(traits: ["Tagged"])),
-            .product(name: "Vector", package: "swift-vector"),
-        ]),
-        .testTarget(name: "Displacement Tests", dependencies: [
-            .target(name: "Displacement"),
+        .target(
+            name: "Displacement",
+            dependencies: [
+                .product(
+                    name: "Tagged",
+                    package: "swift-tagged",
+                    condition: .when(traits: ["Tagged"])
+                ),
+                .product(name: "Vector", package: "swift-vector"),
+            ]
+        ),
+        .testTarget(
+            name: "Displacement Tests",
+            dependencies: [
+                .target(name: "Displacement")
 
-        ]),
+            ]
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    target.swiftSettings = (target.swiftSettings ?? []) + [
-        .strictMemorySafety(),
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableUpcomingFeature("InternalImportsByDefault"),
-        .enableUpcomingFeature("MemberImportVisibility"),
-        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        .enableUpcomingFeature("InferIsolatedConformances"),
-        .enableExperimentalFeature("Lifetimes"),
-        .treatAllWarnings(as: .error),
-    ]
+    target.swiftSettings =
+        (target.swiftSettings ?? []) + [
+            .strictMemorySafety(),
+            .enableUpcomingFeature("ExistentialAny"),
+            .enableUpcomingFeature("InternalImportsByDefault"),
+            .enableUpcomingFeature("MemberImportVisibility"),
+            .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+            .enableUpcomingFeature("InferIsolatedConformances"),
+            .enableExperimentalFeature("Lifetimes"),
+            .treatAllWarnings(as: .error),
+        ]
 }
